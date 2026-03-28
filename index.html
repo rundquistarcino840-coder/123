@@ -3,107 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>快捷兑换中心</title>
+    <title>自助兑换中心</title>
     <style>
         :root {
+            /* 品牌核心色 */
             --primary: #0071e3;
             --wechat: #07c160;
             --success: #34c759;
-            /* 稍微加深背景色，确保在 PC 端对比明显 */
-            --bg: #ececef; 
+            --bg: #f5f5f7;
             --text-main: #1d1d1f;
             --text-secondary: #86868b;
             
-            /* 极致统一参数 */
-            --border-radius-large: 24px;
-            --border-radius-small: 14px;
-            --box-padding: 22px;
-            --btn-height: 50px;
-            --font-size-display: 18px;
-        }
-
-        /* 全平台兼容补丁 */
-        * {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            box-sizing: border-box;
+            /* 极致对齐物理参数 */
+            --grid-unit: 4px;
+            --radius-outer: 22px;
+            --radius-inner: 12px;
+            --padding-main: 24px;
+            --btn-height: 48px;
+            --display-box-min-height: 120px; /* 强制统一展示方块高度 */
         }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", sans-serif; 
             background-color: var(--bg);
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
-            line-height: 1.5;
-            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .wrapper { 
-            max-width: 440px; 
-            width: 100%; 
-            margin: 10px auto; 
-        }
+        .wrapper { max-width: 400px; width: 100%; }
 
-        header { text-align: center; margin-bottom: 35px; }
-        header h1 { font-size: 26px; font-weight: 700; margin: 0; letter-spacing: -0.5px; }
-        header p { font-size: 15px; color: var(--text-secondary); margin-top: 8px; }
+        header { text-align: center; margin-bottom: 40px; }
+        header h1 { font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.6px; }
+        header p { font-size: 16px; color: var(--text-secondary); margin-top: 10px; font-weight: 400; }
 
-        /* 大版块容器：强化了边框和阴影，解决 PC 端融合问题 */
+        /* --- 极致对齐的容器 --- */
         .section-block {
             background: #ffffff;
-            border-radius: var(--border-radius-large);
-            padding: 26px;
-            margin-bottom: 25px;
-            /* 强化立体感 */
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
-            border: 1px solid rgba(0,0,0,0.08); 
-            overflow: hidden;
+            border-radius: var(--radius-outer);
+            padding: var(--padding-main);
+            margin-bottom: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.02);
+            position: relative;
         }
 
+        /* 装饰条改为内嵌式，确保圆角边缘极致对齐 */
+        .section-block::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            border-radius: var(--radius-outer) var(--radius-outer) 0 0;
+        }
+        .block-wechat::before { background: var(--wechat); }
+        .block-primary::before { background: var(--primary); }
+
         .section-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            letter-spacing: 1.2px;
+            margin-bottom: 24px;
             display: block;
-            border-bottom: 1px solid #f0f0f2;
-            padding-bottom: 10px;
+            opacity: 0.8;
         }
 
-        .inner-card { margin-bottom: 20px; }
+        .inner-card { margin-bottom: 24px; }
         .inner-card:last-child { margin-bottom: 0; }
-        .card-label { font-size: 16px; font-weight: 600; margin-bottom: 15px; display: block; }
+        .card-label { font-size: 15px; font-weight: 600; margin-bottom: 12px; display: block; }
 
-        /* 统一的小方块样式 */
+        /* --- 核心：高度统一的展示模组 --- */
         .universal-info-box {
             background: #fbfbfd;
-            border: 1.5px solid #d2d2d7; /* 稍微加强线条感 */
-            padding: var(--box-padding);
-            border-radius: var(--border-radius-small);
-            text-align: center;
-            margin-bottom: 10px;
+            border: 1px solid #d2d2d7;
+            padding: 20px;
+            border-radius: var(--radius-inner);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 确保内容和按钮分居两端，高度撑满 */
+            min-height: var(--display-box-min-height);
+            box-sizing: border-box;
         }
 
         .display-content {
-            font-size: var(--font-size-display);
+            font-size: 17px;
             font-weight: 700;
-            font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
-            display: block;
-            margin-bottom: 15px;
-            letter-spacing: 0.8px;
+            font-family: "SF Mono", "Menlo", monospace; 
+            text-align: center;
+            flex-grow: 1; /* 占据剩余空间，实现垂直居中 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             word-break: break-all;
+            margin-bottom: 16px;
+            line-height: 1.2;
         }
-        #wechat-num { color: var(--wechat); }
-        #kami-value { color: var(--text-main); }
-        .link-text { color: var(--primary); }
 
-        /* 按钮系统 */
+        #wechat-num { color: var(--wechat); }
+        .link-text { color: var(--primary); text-decoration: none; }
+
+        /* --- 按钮系统：像素级对齐 --- */
         .btn {
             display: flex;
             align-items: center;
@@ -111,55 +116,54 @@
             width: 100%;
             height: var(--btn-height);
             border: none;
-            border-radius: 12px;
-            font-size: 15px;
+            border-radius: 10px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: all 0.2s ease;
             text-decoration: none;
+            box-sizing: border-box;
         }
-        
+
         .btn-black { background: #1d1d1f; color: #fff; }
         .btn-link { background: var(--primary); color: #fff; }
-        .btn-wechat { background: var(--wechat); color: #fff; }
+        .btn-wechat { border: 1.5px solid var(--wechat); background: transparent; color: var(--wechat); }
         
-        /* 交互反馈 */
-        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn:active { transform: scale(0.98); }
+        .btn:active { transform: scale(0.97); }
 
-        /* 图片组件 */
+        /* 图片组对齐 */
+        .img-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
         .img-stack img { 
             width: 100%; 
-            border-radius: 16px; 
-            margin-top: 10px; 
-            display: block;
-            border: 1px solid rgba(0,0,0,0.05);
-            background: #f0f0f2;
+            aspect-ratio: 1/1; 
+            object-fit: cover;
+            border-radius: var(--radius-inner); 
+            border: 1px solid rgba(0,0,0,0.08);
         }
 
-        footer { text-align: center; padding: 15px 0 50px; font-size: 11px; color: var(--text-secondary); opacity: 0.8; }
+        footer { margin-top: 20px; font-size: 12px; color: var(--text-secondary); }
     </style>
 </head>
 <body>
 
     <div class="wrapper">
         <header>
-            <h1>自助兑换服务</h1>
+            <h1>自助兑换中心</h1>
             <p>轻松三步，开启会员体验</p>
         </header>
 
-        <div class="section-block" style="border-top: 5px solid var(--wechat);">
+        <div class="section-block block-wechat">
             <span class="section-title">Support / 售后支持</span>
             <div class="inner-card">
                 <span class="card-label">联系客服微信</span>
                 <div class="universal-info-box">
                     <span id="wechat-num" class="display-content">WX_12345678</span>
-                    <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '复制微信号', '#07c160')">复制微信号并去添加</button>
+                    <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '复制微信号', 'transparent')">复制微信号并去添加</button>
                 </div>
             </div>
         </div>
 
-        <div class="section-block" style="border-top: 5px solid var(--primary);">
+        <div class="section-block block-primary">
             <span class="section-title">Redeem / 兑换步骤</span>
             
             <div class="inner-card">
@@ -181,40 +185,37 @@
             <div class="inner-card">
                 <span class="card-label">03. 流程参考图</span>
                 <div class="img-stack">
-                    <img src="微信图片_20260328155612_1_2.png" alt="步骤1">
-                    <img src="微信图片_20260328155614_2_2.png" alt="步骤2">
+                    <img src="path_to_img1.png" alt="步骤1">
+                    <img src="path_to_img2.png" alt="步骤2">
                 </div>
             </div>
         </div>
 
-        <footer>© 2026 自动化分发系统 · 极致对齐补强版</footer>
+        <footer>© 2026 自动化分发系统</footer>
     </div>
 
     <script>
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const myId = urlParams.get('id');
-            if (myId) {
-                document.getElementById('kami-value').innerText = myId;
-            }
+            if (myId) document.getElementById('kami-value').innerText = myId;
         };
 
         function copyText(elementId, btnElement, originalText, originalBg) {
             const text = document.getElementById(elementId).innerText;
-            const el = document.createElement('textarea');
-            el.value = text;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-            
-            btnElement.innerText = '✅ 已成功复制';
-            btnElement.style.background = 'var(--success)';
-            
-            setTimeout(() => {
-                btnElement.innerText = originalText;
-                btnElement.style.background = originalBg;
-            }, 2000);
+            navigator.clipboard.writeText(text).then(() => {
+                btnElement.innerText = '✅ 已复制';
+                btnElement.style.background = 'var(--success)';
+                btnElement.style.color = '#fff';
+                btnElement.style.borderColor = 'var(--success)';
+                
+                setTimeout(() => {
+                    btnElement.innerText = originalText;
+                    btnElement.style.background = originalBg;
+                    btnElement.style.color = originalBg === 'transparent' ? 'var(--wechat)' : '#fff';
+                    btnElement.style.borderColor = originalBg === 'transparent' ? 'var(--wechat)' : 'none';
+                }, 1500);
+            });
         }
     </script>
 </body>
