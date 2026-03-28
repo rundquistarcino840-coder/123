@@ -8,7 +8,7 @@
         :root {
             --primary: #0071e3;
             --success: #34c759;
-            --wechat: #07c160; /* 微信绿 */
+            --wechat: #07c160; 
             --bg: #f5f5f7;
             --text-main: #1d1d1f;
             --text-secondary: #86868b;
@@ -29,9 +29,9 @@
 
         .wrapper { max-width: 440px; width: 100%; margin-top: 10px; }
 
-        header { text-align: center; margin-bottom: 35px; }
+        header { text-align: center; margin-bottom: 30px; }
         header h1 { font-size: 26px; font-weight: 700; margin: 0; }
-        header p { font-size: 15px; color: var(--text-secondary); margin-top: 8px; }
+        header p { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
 
         .card {
             background: rgba(255, 255, 255, 0.9);
@@ -55,6 +55,9 @@
             letter-spacing: 0.8px;
         }
 
+        /* 特殊的微信标签样式 */
+        .contact-tag { background: rgba(7, 193, 96, 0.1); color: var(--wechat); }
+
         .card-title { font-size: 18px; font-weight: 600; margin-bottom: 15px; display: block; }
 
         .kami-box {
@@ -70,6 +73,7 @@
             font-family: "SF Mono", Menlo, monospace;
             display: block;
             margin-bottom: 15px;
+            letter-spacing: 1px;
         }
 
         .btn {
@@ -83,7 +87,7 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
         }
         .btn-copy { background: #1d1d1f; color: #fff; }
@@ -92,16 +96,7 @@
         
         .btn:active { transform: scale(0.98); opacity: 0.9; }
 
-        /* 微信引流区域 */
-        .wechat-section {
-            background: #fff;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid #e5e5e5;
-            margin-bottom: 20px;
-        }
-        .wechat-id { font-weight: 700; color: var(--wechat); font-size: 18px; margin-bottom: 10px; display: block; }
+        .wechat-id { font-weight: 700; color: var(--wechat); font-size: 20px; margin: 10px 0; display: block; text-align: center; }
 
         .img-stack img { 
             width: 100%; 
@@ -117,36 +112,36 @@
 <body>
     <div class="wrapper">
         <header>
-            <h1>自助兑换指引</h1>
-            <p>获取CDK后请按图示完成操作</p>
+            <h1>自助兑换中心</h1>
+            <p>请按照指引完成会员激活</p>
         </header>
+
+        <div class="card">
+            <span class="step-tag contact-tag">SUPPORT / 售后咨询</span>
+            <span class="card-title">联系客服微信</span>
+            <p style="font-size: 14px; color: #424245; margin-bottom: 10px;">兑换遇到困难？请添加客服处理：</p>
+            <span class="wechat-id" id="wechat-num">WX_12345678</span>
+            <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '点击复制微信号', '#07c160')">复制微信号</button>
+        </div>
         
         <div class="card">
-            <span class="step-tag">第一步</span>
+            <span class="step-tag">STEP 01</span>
             <span class="card-title">复制您的专属CDK</span>
             <div class="kami-box">
                 <span id="kami-value">ABCDE-12345-FGHIJ</span>
-                <button class="btn btn-copy" onclick="copyText('kami-value', this, '拷贝CDK代码')">拷贝CDK代码</button>
+                <button class="btn btn-copy" onclick="copyText('kami-value', this, '拷贝CDK代码', '#1d1d1f')">拷贝CDK代码</button>
             </div>
         </div>
 
         <div class="card">
-            <span class="step-tag">第二步</span>
+            <span class="step-tag">STEP 02</span>
             <span class="card-title">前往兑换页面</span>
             <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转兑换 →</a>
         </div>
 
         <div class="card">
-            <span class="step-tag">CONTACT</span>
-            <span class="card-title">售后与咨询</span>
-            <p style="font-size: 14px; color: #424245; margin-bottom: 15px;">如果您在兑换过程中遇到任何问题，请添加客服微信：</p>
-            <span class="wechat-id" id="wechat-num">WX_12345678</span>
-            <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '复制微信并去添加')">复制微信号</button>
-        </div>
-
-        <div class="card">
-            <span class="step-tag">第三步</span>
-            <span class="card-title">按照下图流程充值</span>
+            <span class="step-tag">GUIDE</span>
+            <span class="card-title">操作流程参考</span>
             <div class="img-stack">
                 <img src="微信图片_20260328155612_1_2.png" alt="步骤1">
                 <img src="微信图片_20260328155614_2_2.png" alt="步骤2">
@@ -157,8 +152,7 @@
     </div>
 
     <script>
-        // 通用的复制函数
-        function copyText(elementId, btnElement, originalText) {
+        function copyText(elementId, btnElement, originalText, originalBg) {
             const text = document.getElementById(elementId).innerText;
             const el = document.createElement('textarea');
             el.value = text;
@@ -168,12 +162,11 @@
             document.body.removeChild(el);
             
             btnElement.innerText = '✅ 已成功复制';
-            const oldBg = btnElement.style.background;
             btnElement.style.background = 'var(--success)';
             
             setTimeout(() => {
                 btnElement.innerText = originalText;
-                btnElement.style.background = oldBg;
+                btnElement.style.background = originalBg;
             }, 2000);
         }
     </script>
