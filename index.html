@@ -8,129 +8,125 @@
         :root {
             --primary: #0071e3;
             --success: #34c759;
-            --bg: #f2f2f7;
+            --wechat: #07c160; /* 微信绿 */
+            --bg: #f5f5f7;
             --text-main: #1d1d1f;
             --text-secondary: #86868b;
         }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; 
-            background-color: var(--bg);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; 
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+            background-attachment: fixed;
             margin: 0;
             padding: 20px;
             color: var(--text-main);
             display: flex;
             justify-content: center;
             line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .wrapper { 
-            max-width: 440px; 
-            width: 100%;
-            margin-top: 10px;
-        }
+        .wrapper { max-width: 440px; width: 100%; margin-top: 10px; }
 
-        /* 顶部引导标题 */
-        header { text-align: center; margin-bottom: 30px; }
-        header h1 { font-size: 24px; font-weight: 700; margin: 0; }
-        header p { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
+        header { text-align: center; margin-bottom: 35px; }
+        header h1 { font-size: 26px; font-weight: 700; margin: 0; }
+        header p { font-size: 15px; color: var(--text-secondary); margin-top: 8px; }
 
-        /* 通用卡片样式 */
         .card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 26px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.02);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255,255,255,0.4);
         }
 
         .step-tag {
             display: inline-block;
-            background: rgba(0,113,227,0.1);
+            background: rgba(0,113,227,0.08);
             color: var(--primary);
             font-size: 11px;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             margin-bottom: 12px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
-        .card-title { font-size: 17px; font-weight: 600; margin-bottom: 15px; display: block; }
+        .card-title { font-size: 18px; font-weight: 600; margin-bottom: 15px; display: block; }
 
-        /* 卡密展示 */
         .kami-box {
-            background: #f5f5f7;
-            border: 1px dashed #d2d2d7;
-            padding: 18px;
-            border-radius: 12px;
+            background: #fbfbfd;
+            border: 1px solid #d2d2d7;
+            padding: 20px;
+            border-radius: 16px;
             text-align: center;
         }
         #kami-value {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             font-family: "SF Mono", Menlo, monospace;
-            color: #000;
             display: block;
             margin-bottom: 15px;
         }
 
-        /* 按钮动画 */
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 48px;
+            height: 50px;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s;
             text-decoration: none;
         }
-        .btn-copy { background: #000; color: #fff; }
+        .btn-copy { background: #1d1d1f; color: #fff; }
         .btn-link { background: var(--primary); color: #fff; }
-        .btn:active { transform: scale(0.97); opacity: 0.9; }
+        .btn-wechat { background: var(--wechat); color: #fff; margin-top: 10px; }
+        
+        .btn:active { transform: scale(0.98); opacity: 0.9; }
 
-        /* 说明文字列表 */
-        .guide-list { margin: 0; padding: 0; list-style: none; }
-        .guide-list li { 
-            font-size: 14px; 
-            color: #424245; 
-            margin-bottom: 10px; 
-            display: flex; 
-            align-items: flex-start;
+        /* 微信引流区域 */
+        .wechat-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #e5e5e5;
+            margin-bottom: 20px;
         }
-        .guide-list li::before { content: "•"; color: var(--primary); font-weight: bold; width: 15px; flex-shrink: 0; }
+        .wechat-id { font-weight: 700; color: var(--wechat); font-size: 18px; margin-bottom: 10px; display: block; }
 
-        .img-stack { margin-top: 15px; }
         .img-stack img { 
             width: 100%; 
-            border-radius: 12px; 
-            margin-bottom: 12px; 
+            border-radius: 16px; 
+            margin-top: 15px; 
             display: block;
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        footer { text-align: center; padding: 20px 0 40px; font-size: 12px; color: var(--text-secondary); }
+        footer { text-align: center; padding: 20px 0 60px; font-size: 12px; color: var(--text-secondary); }
     </style>
 </head>
 <body>
     <div class="wrapper">
         <header>
             <h1>自助兑换指引</h1>
-            <p>请按顺序完成以下操作</p>
+            <p>获取CDK后请按图示完成操作</p>
         </header>
         
         <div class="card">
             <span class="step-tag">STEP 01</span>
-            <span class="card-title">复制您的CDK</span>
+            <span class="card-title">复制您的专属CDK</span>
             <div class="kami-box">
                 <span id="kami-value">ABCDE-12345-FGHIJ</span>
-                <button class="btn btn-copy" onclick="copyCode()">拷贝CDK代码</button>
+                <button class="btn btn-copy" onclick="copyText('kami-value', this, '拷贝CDK代码')">拷贝CDK代码</button>
             </div>
         </div>
 
@@ -141,28 +137,29 @@
         </div>
 
         <div class="card">
-            <span class="step-tag">STEP 03</span>
-            <span class="card-title">按下图流程进行操作</span>
-            <ul class="guide-list">
-                <li>点击上方“拷贝”按钮获取专属代码。</li>
-                <li>点击“跳转兑换”按钮进入官方操作页。</li>
-                <li>在输入框粘贴代码并确认即可生效。</li>
-            </ul>
-            
+            <span class="step-tag">CONTACT</span>
+            <span class="card-title">售后与咨询</span>
+            <p style="font-size: 14px; color: #424245; margin-bottom: 15px;">如果您在兑换过程中遇到任何问题，请添加客服微信：</p>
+            <span class="wechat-id" id="wechat-num">WX_12345678</span>
+            <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '复制微信并去添加')">复制微信号</button>
+        </div>
+
+        <div class="card">
+            <span class="step-tag">GUIDE</span>
+            <span class="card-title">操作流程参考</span>
             <div class="img-stack">
-                <img src="微信图片_20260328155612_1_2.png" alt="Guide 1">
-                <img src="微信图片_20260328155614_2_2.png" alt="Guide 2">
+                <img src="微信图片_20260328155612_1_2.png" alt="步骤1">
+                <img src="微信图片_20260328155614_2_2.png" alt="步骤2">
             </div>
         </div>
 
-        <footer>
-            由 自动化分发系统 提供支持
-        </footer>
+        <footer>© 2026 自动化分发系统</footer>
     </div>
 
     <script>
-        function copyCode() {
-            const text = document.getElementById('kami-value').innerText;
+        // 通用的复制函数
+        function copyText(elementId, btnElement, originalText) {
+            const text = document.getElementById(elementId).innerText;
             const el = document.createElement('textarea');
             el.value = text;
             document.body.appendChild(el);
@@ -170,14 +167,13 @@
             document.execCommand('copy');
             document.body.removeChild(el);
             
-            const btn = document.querySelector('.btn-copy');
-            const originalText = btn.innerText;
-            btn.innerText = '已复制到剪贴板';
-            btn.style.background = '#34c759';
+            btnElement.innerText = '✅ 已成功复制';
+            const oldBg = btnElement.style.background;
+            btnElement.style.background = 'var(--success)';
             
             setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = '#000';
+                btnElement.innerText = originalText;
+                btnElement.style.background = oldBg;
             }, 2000);
         }
     </script>
