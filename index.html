@@ -55,26 +55,40 @@
             letter-spacing: 0.8px;
         }
 
-        /* 特殊的微信标签样式 */
         .contact-tag { background: rgba(7, 193, 96, 0.1); color: var(--wechat); }
 
         .card-title { font-size: 18px; font-weight: 600; margin-bottom: 15px; display: block; }
 
-        .kami-box {
+        /* 统一的展示盒子样式 */
+        .info-box {
             background: #fbfbfd;
-            border: 1px solid #d2d2d7;
+            border: 1px dashed #d2d2d7;
             padding: 20px;
             border-radius: 16px;
             text-align: center;
+            margin-bottom: 10px;
         }
-        #kami-value {
-            font-size: 24px;
+
+        /* 第二步专用的实线盒子，增加点击感 */
+        .link-box {
+            background: #ffffff;
+            border: 1px solid #d2d2d7;
+            border-style: solid; /* 这里用实线区别于CDK的虚线 */
+            transition: all 0.2s ease;
+        }
+        .link-box:active { background: #f5f5f7; transform: scale(0.98); }
+
+        #kami-value, #wechat-num, .link-display-text {
+            font-size: 22px;
             font-weight: 700;
             font-family: "SF Mono", Menlo, monospace;
             display: block;
             margin-bottom: 15px;
             letter-spacing: 1px;
         }
+        
+        #wechat-num { color: var(--wechat); }
+        .link-display-text { font-size: 18px; color: var(--primary); margin-bottom: 15px; }
 
         .btn {
             display: flex;
@@ -92,11 +106,9 @@
         }
         .btn-copy { background: #1d1d1f; color: #fff; }
         .btn-link { background: var(--primary); color: #fff; }
-        .btn-wechat { background: var(--wechat); color: #fff; margin-top: 10px; }
+        .btn-wechat { background: var(--wechat); color: #fff; }
         
         .btn:active { transform: scale(0.98); opacity: 0.9; }
-
-        .wechat-id { font-weight: 700; color: var(--wechat); font-size: 20px; margin: 10px 0; display: block; text-align: center; }
 
         .img-stack img { 
             width: 100%; 
@@ -119,29 +131,33 @@
         <div class="card">
             <span class="step-tag contact-tag">SUPPORT / 售后咨询</span>
             <span class="card-title">联系客服微信</span>
-            <p style="font-size: 14px; color: #424245; margin-bottom: 10px;">兑换遇到困难？请添加客服处理：</p>
-            <span class="wechat-id" id="wechat-num">aaikne</span>
-            <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '点击复制微信号', '#07c160')">复制微信号</button>
+            <div class="info-box">
+                <span id="wechat-num">WX_12345678</span>
+                <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '点击复制微信号', '#07c160')">复制微信号</button>
+            </div>
         </div>
         
         <div class="card">
-            <span class="step-tag">第一步</span>
+            <span class="step-tag">STEP 01</span>
             <span class="card-title">复制您的专属CDK</span>
-            <div class="kami-box">
+            <div class="info-box">
                 <span id="kami-value">ABCDE-12345-FGHIJ</span>
                 <button class="btn btn-copy" onclick="copyText('kami-value', this, '拷贝CDK代码', '#1d1d1f')">拷贝CDK代码</button>
             </div>
         </div>
 
         <div class="card">
-            <span class="step-tag">第二部</span>
+            <span class="step-tag">STEP 02</span>
             <span class="card-title">前往兑换页面</span>
-            <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转兑换 →</a>
+            <div class="info-box link-box">
+                <span class="link-display-text">官方指定兑换通道</span>
+                <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转兑换 →</a>
+            </div>
         </div>
 
         <div class="card">
-            <span class="step-tag">第三步</span>
-            <span class="card-title">按照下图流程操作</span>
+            <span class="step-tag">GUIDE</span>
+            <span class="card-title">操作流程参考</span>
             <div class="img-stack">
                 <img src="微信图片_20260328155612_1_2.png" alt="步骤1">
                 <img src="微信图片_20260328155614_2_2.png" alt="步骤2">
