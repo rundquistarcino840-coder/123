@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自助兑换中心</title>
+    <title>快捷兑换中心</title>
     <style>
         :root {
-            /* 品牌核心色 */
-            --primary: #0071e3;    /* Apple Blue */
-            --wechat: #07c160;     /* WeChat Green */
-            --success: #34c759;    /* Feedback Green */
-            --bg: #f5f5f7;          /* System Gray */
-            --text-main: #1d1d1f;   /* Graphite */
-            --text-secondary: #86868b; /* Silver */
+            --primary: #0071e3;
+            --wechat: #07c160;
+            --success: #34c759;
+            --bg: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
             
-            /* 极致统一的物理参数 (The Grid) */
+            /* 极致统一参数 */
             --border-radius-large: 24px;
             --border-radius-small: 14px;
             --box-padding: 22px;
             --btn-height: 50px;
-            --font-size-display: 18px; /* 统一的展示文字大小 */
+            --font-size-display: 18px;
+        }
+
+        /* 全平台兼容补丁：强制 PC 端开启 Apple 级抗锯齿 */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
         }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", "PingFang SC", sans-serif; 
             background-color: var(--bg);
             margin: 0;
             padding: 20px;
@@ -32,16 +38,21 @@
             flex-direction: column;
             align-items: center;
             line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
-        .wrapper { max-width: 440px; width: 100%; margin-top: 10px; }
+        /* 极致对齐：限制 PC 端最大宽度，防止横向变形 */
+        .wrapper { 
+            max-width: 440px; 
+            width: 100%; 
+            margin: 10px auto; 
+        }
 
         header { text-align: center; margin-bottom: 35px; }
         header h1 { font-size: 26px; font-weight: 700; margin: 0; letter-spacing: -0.5px; }
         header p { font-size: 15px; color: var(--text-secondary); margin-top: 8px; }
 
-        /* --- 极致统一的大版块容器 --- */
+        /* 大版块容器样式 */
         .section-block {
             background: #ffffff;
             border-radius: var(--border-radius-large);
@@ -49,10 +60,9 @@
             margin-bottom: 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             border: 1px solid rgba(0,0,0,0.02);
-            overflow: hidden; /* 确保装饰条不超出圆角 */
+            overflow: hidden;
         }
 
-        /* 统一的版块标题样式 */
         .section-title {
             font-size: 12px;
             font-weight: 700;
@@ -65,26 +75,24 @@
             padding-bottom: 10px;
         }
 
-        /* 统一的内部卡片布局 */
         .inner-card { margin-bottom: 20px; }
         .inner-card:last-child { margin-bottom: 0; }
         .card-label { font-size: 16px; font-weight: 600; margin-bottom: 15px; display: block; }
 
-        /* --- 核心：完全统一的“小方块”样式模组 --- */
+        /* 统一的小方块样式模组 */
         .universal-info-box {
             background: #fbfbfd;
-            border: 1px solid #d2d2d7; /* 升级为实线，更有质感和稳定性 */
+            border: 1px solid #d2d2d7;
             padding: var(--box-padding);
             border-radius: var(--border-radius-small);
             text-align: center;
             margin-bottom: 10px;
         }
 
-        /* 统一的展示文字 */
         .display-content {
             font-size: var(--font-size-display);
             font-weight: 700;
-            font-family: "SF Mono", Menlo, monospace; /* 等宽字体增强CDK质感 */
+            font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
             display: block;
             margin-bottom: 15px;
             letter-spacing: 0.8px;
@@ -94,7 +102,7 @@
         #kami-value { color: var(--text-main); }
         .link-text { color: var(--primary); }
 
-        /* --- 极致统一的按钮系统 --- */
+        /* 按钮系统 */
         .btn {
             display: flex;
             align-items: center;
@@ -106,17 +114,17 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
             text-decoration: none;
         }
         
-        /* 独立颜色区分，但物理尺寸一致 */
         .btn-black { background: #1d1d1f; color: #fff; }
         .btn-link { background: var(--primary); color: #fff; }
         .btn-wechat { background: var(--wechat); color: #fff; }
         
-        /* 统一的反馈动画 */
-        .btn:active { transform: scale(0.98); opacity: 0.9; }
+        /* 增加 PC 端悬停特效，手机端保留点击特效 */
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn:active { transform: scale(0.98); }
 
         /* 图片组件 */
         .img-stack img { 
@@ -125,6 +133,7 @@
             margin-top: 10px; 
             display: block;
             border: 1px solid rgba(0,0,0,0.05);
+            background: #eee; /* 图片未加载时的占位色 */
         }
 
         footer { text-align: center; padding: 15px 0 50px; font-size: 11px; color: var(--text-secondary); opacity: 0.8; }
@@ -134,7 +143,7 @@
 
     <div class="wrapper">
         <header>
-            <h1>自助兑换中心</h1>
+            <h1>自助兑换服务</h1>
             <p>轻松三步，开启会员体验</p>
         </header>
 
@@ -177,11 +186,10 @@
             </div>
         </div>
 
-        <footer>© 2026 自动化分发系统 · 严谨对齐版</footer>
+        <footer>© 2026 自动化分发系统 · 全平台兼容版</footer>
     </div>
 
     <script>
-        // --- 核心逻辑不动 ---
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const myId = urlParams.get('id');
