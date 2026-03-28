@@ -5,48 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>信息展示</title>
     <style>
-        /* 页面基础样式 */
+        /* 页面基础全局样式 */
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: #f9f9f9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; 
+            background-color: #f9f9f9; /* 浅灰色背景，突出内容 */
             display: flex;
             justify-content: center;
-            padding: 20px; 
+            align-items: flex-start; /* 允许页面上下滚动 */
+            min-height: 100vh;
             margin: 0;
+            padding: 20px; 
             color: #333; 
         }
+
+        /* 内容容器样式 */
         .content { 
-            max-width: 600px; 
+            max-width: 600px; /* 限制最大宽度，在电脑上更美观 */
             width: 100%;
-            background: white;
+            background: white; /* 内容区域白色背景 */
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* 淡淡的阴影 */
+            text-align: center; /* 内容居中 */
         }
+
+        /* 文本段落样式 */
+        p { 
+            font-size: 1.15rem; /* 稍微放大字体 */
+            line-height: 1.8;
+            margin: 0 0 25px 0; /* 调整间距 */
+            word-wrap: break-word; /* 确保长文本能换行 */
+        }
+
         /* 图片样式优化 */
         img { 
-            max-width: 100%; 
-            height: auto;
-            border-radius: 8px; 
-            margin-top: 20px; 
-            display: block;
+            max-width: 100%; /* 图片宽度不超过容器 */
+            height: auto; /* 高度自适应 */
+            border-radius: 8px; /* 图片圆角 */
+            margin-bottom: 20px; /* 两张图片之间的间距 */
+            display: block; /* 消除图片下方的幽灵空隙 */
             margin-left: auto;
             margin-right: auto;
-        }
-        p { 
-            font-size: 1.1rem; 
-            line-height: 1.8;
-            margin-bottom: 20px; 
-            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
     <div class="content">
-        <p>这里输入你想说的那一段话（例如：欢迎来到我的分享页面！）</p >
-        <img src="https://gitee.com/aaikne/111/raw/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260328155612_1_2.png" alt="图片1描述">
-        <img src="https://gitee.com/aaikne/111/raw/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260328155614_2_2.png" alt="图片2描述">
+        <p>这里输入你想说的那一段话</p>
+
+        <img src="微信图片_20260328155612_1_2.png" alt="图片1描述">
+        <img src="微信图片_20260328155614_2_2.png" alt="图片2描述">
     </div>
 </body>
 </html>
