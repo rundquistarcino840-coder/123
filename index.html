@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>快捷兑换指引</title>
+    <title>快捷兑换中心</title>
     <style>
         :root {
             --primary: #0071e3;
@@ -16,67 +16,65 @@
 
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; 
-            background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
-            background-attachment: fixed;
+            background-color: var(--bg);
             margin: 0;
             padding: 20px;
             color: var(--text-main);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
 
-        .wrapper { max-width: 440px; width: 100%; margin-top: 10px; }
+        .wrapper { max-width: 460px; width: 100%; }
 
-        header { text-align: center; margin-bottom: 30px; }
-        header h1 { font-size: 26px; font-weight: 700; margin: 0; }
-        header p { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
+        header { text-align: center; margin: 20px 0 30px; }
+        header h1 { font-size: 24px; font-weight: 700; margin: 0; }
+        header p { font-size: 14px; color: var(--text-secondary); margin-top: 6px; }
 
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 26px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-            border: 1px solid rgba(255,255,255,0.4);
+        /* 大版块容器样式 */
+        .section-block {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
-        .step-tag {
-            display: inline-block;
-            background: rgba(0,113,227,0.08);
-            color: var(--primary);
-            font-size: 11px;
+        .section-title {
+            font-size: 13px;
             font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: block;
+            border-bottom: 1px solid #f0f0f2;
+            padding-bottom: 10px;
         }
 
-        .contact-tag { background: rgba(7, 193, 96, 0.1); color: var(--wechat); }
+        /* 内部小卡片样式 */
+        .inner-card {
+            margin-bottom: 20px;
+        }
+        .inner-card:last-child { margin-bottom: 0; }
 
-        .card-title { font-size: 18px; font-weight: 600; margin-bottom: 15px; display: block; }
+        .card-label { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: block; }
 
-        /* 统一的展示盒子样式 */
+        /* 统一的展示盒子 */
         .info-box {
             background: #fbfbfd;
             border: 1px dashed #d2d2d7;
-            padding: 20px;
+            padding: 18px;
             border-radius: 16px;
             text-align: center;
             margin-bottom: 10px;
         }
-
-        /* 第二步专用的实线盒子，增加点击感 */
-        .link-box {
-            background: #ffffff;
-            border: 1px solid #d2d2d7;
-            border-style: solid; /* 这里用实线区别于CDK的虚线 */
-            transition: all 0.2s ease;
-        }
-        .link-box:active { background: #f5f5f7; transform: scale(0.98); }
+        
+        /* 针对第二步的实线盒子 */
+        .link-box { border-style: solid; background: #fff; }
 
         #kami-value, #wechat-num, .link-display-text {
             font-size: 22px;
@@ -86,19 +84,19 @@
             margin-bottom: 15px;
             letter-spacing: 1px;
         }
-        
         #wechat-num { color: var(--wechat); }
-        .link-display-text { font-size: 18px; color: var(--primary); margin-bottom: 15px; }
+        .link-display-text { font-size: 17px; color: var(--primary); }
 
+        /* 按钮系统 */
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 50px;
+            height: 48px;
             border: none;
-            border-radius: 14px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -107,60 +105,64 @@
         .btn-copy { background: #1d1d1f; color: #fff; }
         .btn-link { background: var(--primary); color: #fff; }
         .btn-wechat { background: var(--wechat); color: #fff; }
-        
         .btn:active { transform: scale(0.98); opacity: 0.9; }
 
+        /* 图片样式 */
         .img-stack img { 
             width: 100%; 
-            border-radius: 16px; 
-            margin-top: 15px; 
+            border-radius: 14px; 
+            margin-top: 10px; 
             display: block;
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        footer { text-align: center; padding: 20px 0 60px; font-size: 12px; color: var(--text-secondary); }
+        footer { text-align: center; padding: 10px 0 50px; font-size: 12px; color: var(--text-secondary); }
     </style>
 </head>
 <body>
+
     <div class="wrapper">
         <header>
-            <h1>自助兑换中心</h1>
-            <p>请按照指引完成会员激活</p>
+            <h1>自助兑换服务</h1>
+            <p>轻松三步，开启会员体验</p>
         </header>
 
-        <div class="card">
-            <span class="step-tag contact-tag">SUPPORT / 售后咨询</span>
-            <span class="card-title">联系客服微信</span>
-            <div class="info-box">
-                <span id="wechat-num">WX_12345678</span>
-                <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '点击复制微信号', '#07c160')">复制微信号</button>
-            </div>
-        </div>
-        
-        <div class="card">
-            <span class="step-tag">STEP 01</span>
-            <span class="card-title">复制您的专属CDK</span>
-            <div class="info-box">
-                <span id="kami-value">ABCDE-12345-FGHIJ</span>
-                <button class="btn btn-copy" onclick="copyText('kami-value', this, '拷贝CDK代码', '#1d1d1f')">拷贝CDK代码</button>
+        <div class="section-block" style="border-top: 4px solid var(--wechat);">
+            <span class="section-title">Support / 售后支持</span>
+            <div class="inner-card">
+                <span class="card-label">联系客服微信</span>
+                <div class="info-box">
+                    <span id="wechat-num">WX_12345678</span>
+                    <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '复制微信号', '#07c160')">复制微信号</button>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <span class="step-tag">STEP 02</span>
-            <span class="card-title">前往兑换页面</span>
-            <div class="info-box link-box">
-                <span class="link-display-text">官方指定兑换通道</span>
-                <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转兑换 →</a>
+        <div class="section-block">
+            <span class="section-title">Redeem / 兑换流程</span>
+            
+            <div class="inner-card">
+                <span class="card-label">01. 拷贝您的CDK</span>
+                <div class="info-box">
+                    <span id="kami-value">ABCDE-12345-FGHIJ</span>
+                    <button class="btn btn-copy" onclick="copyText('kami-value', this, '拷贝代码', '#1d1d1f')">拷贝CDK代码</button>
+                </div>
             </div>
-        </div>
 
-        <div class="card">
-            <span class="step-tag">GUIDE</span>
-            <span class="card-title">操作流程参考</span>
-            <div class="img-stack">
-                <img src="微信图片_20260328155612_1_2.png" alt="步骤1">
-                <img src="微信图片_20260328155614_2_2.png" alt="步骤2">
+            <div class="inner-card">
+                <span class="card-label">02. 访问兑换页</span>
+                <div class="info-box link-box">
+                    <span class="link-display-text">官方指定兑换通道</span>
+                    <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转 →</a>
+                </div>
+            </div>
+
+            <div class="inner-card">
+                <span class="card-label">03. 流程参考图</span>
+                <div class="img-stack">
+                    <img src="微信图片_20260328155612_1_2.png" alt="Guide 1">
+                    <img src="微信图片_20260328155614_2_2.png" alt="Guide 2">
+                </div>
             </div>
         </div>
 
