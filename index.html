@@ -3,58 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>信息展示</title>
+    <title>会员卡密领取</title>
     <style>
-        /* 页面基础全局样式 */
+        /* 基础样式 */
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; 
-            background-color: #f9f9f9; /* 浅灰色背景，突出内容 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: #f4f7f6;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* 允许页面上下滚动 */
-            min-height: 100vh;
-            margin: 0;
             padding: 20px; 
+            margin: 0;
             color: #333; 
         }
-
-        /* 内容容器样式 */
         .content { 
-            max-width: 600px; /* 限制最大宽度，在电脑上更美观 */
+            max-width: 500px; 
             width: 100%;
-            background: white; /* 内容区域白色背景 */
-            padding: 30px;
+            background: white;
+            padding: 40px 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        /* 文字内容 */
+        .intro-text { 
+            font-size: 1.1rem; 
+            line-height: 1.6;
+            margin-bottom: 30px; 
+            color: #555;
+        }
+
+        /* 卡密展示盒 */
+        .kami-container {
+            background-color: #fff9db;
+            border: 2px dashed #fab005;
+            padding: 25px 15px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* 淡淡的阴影 */
-            text-align: center; /* 内容居中 */
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .kami-label {
+            font-size: 0.85rem;
+            color: #856404;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        #kami-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #e67e22;
+            font-family: 'Courier New', Courier, monospace;
+            word-break: break-all;
         }
 
-        /* 文本段落样式 */
-        p { 
-            font-size: 1.15rem; /* 稍微放大字体 */
-            line-height: 1.8;
-            margin: 0 0 25px 0; /* 调整间距 */
-            word-wrap: break-word; /* 确保长文本能换行 */
+        /* 复制按钮 */
+        .copy-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
         }
+        .copy-btn:hover { background-color: #555; transform: translateY(-1px); }
+        .copy-btn:active { transform: translateY(1px); }
 
-        /* 图片样式优化 */
-        img { 
-            max-width: 100%; /* 图片宽度不超过容器 */
-            height: auto; /* 高度自适应 */
-            border-radius: 8px; /* 图片圆角 */
-            margin-bottom: 20px; /* 两张图片之间的间距 */
-            display: block; /* 消除图片下方的幽灵空隙 */
-            margin-left: auto;
-            margin-right: auto;
+        /* 图片样式 */
+        .display-img { 
+            max-width: 100%; 
+            border-radius: 10px; 
+            margin-top: 25px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
     <div class="content">
-        <p>这里输入你想说的那一段话</p>
+        <div class="intro-text">
+            请保存下方您的专属卡密，按提示完成充值。
+        </div>
 
-        <img src="微信图片_20260328155612_1_2.png" alt="图片1描述">
-        <img src="微信图片_20260328155614_2_2.png" alt="图片2描述">
+        <div class="kami-container">
+            <div class="kami-label">您的专属卡密</div>
+            <div id="kami-value">ABCDE-12345-FGHIJ</div>
+        </div>
+
+        <button class="copy-btn" onclick="copyToClipboard()">点击复制卡密</button>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
+
+        <img class="display-img" src="微信图片_20260328155612_1_2.png" alt="说明图1">
+        <img class="display-img" src="微信图片_20260328155614_2_2.png" alt="说明图2">
     </div>
+
+    <script>
+        function copyToClipboard() {
+            const text = document.getElementById('kami-value').innerText;
+            // 兼容性更好的复制方法
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert('✅ 卡密已成功复制！');
+            } catch (err) {
+                alert('复制失败，请手动长按选择复制');
+            }
+            document.body.removeChild(textArea);
+        }
+    </script>
 </body>
 </html>
