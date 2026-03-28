@@ -3,118 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会员卡密领取</title>
+    <title>卡密自助领取</title>
     <style>
-        /* 基础样式 */
+        /* 核心视觉：Apple 风格极简主义 */
+        :root {
+            --primary-color: #0071e3; /* Apple 蓝色 */
+            --bg-color: #f5f5f7;
+            --card-bg: rgba(255, 255, 255, 0.8);
+        }
+
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: #f4f7f6;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; 
+            background-color: var(--bg-color);
             display: flex;
             justify-content: center;
-            padding: 20px; 
             margin: 0;
-            color: #333; 
+            padding: 40px 20px;
+            color: #1d1d1f;
+            -webkit-font-smoothing: antialiased;
         }
-        .content { 
-            max-width: 500px; 
+
+        .container { 
+            max-width: 540px; 
             width: 100%;
-            background: white;
-            padding: 40px 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px); /* 磨砂玻璃效果 */
+            padding: 40px;
+            border-radius: 28px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
             text-align: center;
         }
 
-        /* 文字内容 */
-        .intro-text { 
-            font-size: 1.1rem; 
-            line-height: 1.6;
-            margin-bottom: 30px; 
-            color: #555;
-        }
+        /* 顶部说明文字 */
+        h2 { font-size: 24px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .subtitle { color: #86868b; font-size: 14px; margin-bottom: 30px; }
 
-        /* 卡密展示盒 */
-        .kami-container {
-            background-color: #fff9db;
-            border: 2px dashed #fab005;
-            padding: 25px 15px;
-            border-radius: 12px;
+        /* 卡密展示盒：高质感纹理 */
+        .kami-wrapper {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border: 1px solid #d2d2d7;
+            padding: 30px 20px;
+            border-radius: 20px;
             margin-bottom: 25px;
-            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
-        .kami-label {
-            font-size: 0.85rem;
-            color: #856404;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
+        .kami-label { font-size: 12px; color: #86868b; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; }
         #kami-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #e67e22;
-            font-family: 'Courier New', Courier, monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #000;
+            font-family: "SF Mono", Menlo, Consolas, monospace;
+            letter-spacing: 1px;
             word-break: break-all;
         }
 
-        /* 复制按钮 */
+        /* 复制按钮：灵动渐变 */
         .copy-btn {
-            background-color: #333;
-            color: white;
+            background: #000;
+            color: #fff;
             border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
-            border-radius: 8px;
+            padding: 14px 40px;
+            font-size: 16px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            font-weight: 500;
+            width: 100%;
         }
-        .copy-btn:hover { background-color: #555; transform: translateY(-1px); }
-        .copy-btn:active { transform: translateY(1px); }
+        .copy-btn:hover { background: #333; transform: scale(1.02); }
+        .copy-btn:active { transform: scale(0.98); }
 
-        /* 图片样式 */
+        /* --- 新增：图片上方的自定义文本框 --- */
+        .custom-textbox {
+            margin-top: 40px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #e5e5e5;
+            text-align: left; /* 文字左对齐更易读 */
+            font-size: 15px;
+            line-height: 1.6;
+            color: #424245;
+        }
+
+        /* 图片样式：高级圆角与阴影 */
         .display-img { 
             max-width: 100%; 
-            border-radius: 10px; 
-            margin-top: 25px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 18px; 
+            margin-top: 20px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: block;
         }
+
+        footer { margin-top: 30px; font-size: 12px; color: #b6b6bb; }
     </style>
 </head>
 <body>
-    <div class="content">
-        <div class="intro-text">
-            请保存下方您的专属卡密，按提示完成充值。
-        </div>
+    <div class="container">
+        <h2>领取成功</h2>
+        <p class="subtitle">请妥善保管您的唯一凭证</p>
 
-        <div class="kami-container">
-            <div class="kami-label">您的专属卡密</div>
+        <div class="kami-wrapper">
+            <div class="kami-label">Code / 专属卡密</div>
             <div id="kami-value">ABCDE-12345-FGHIJ</div>
         </div>
 
-        <button class="copy-btn" onclick="copyToClipboard()">点击复制卡密</button>
+        <button class="copy-btn" onclick="copyToClipboard()">拷贝卡密</button>
 
-        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
+        <div class="custom-textbox">
+            <strong>📢 使用说明：</strong><br>
+            在这里输入你想说的那一段话。你可以写充值流程、注意事项或者联系方式。
+            支持多行显示，会自动根据内容调整高度。
+        </div>
 
-        <img class="display-img" src="微信图片_20260328155612_1_2.png" alt="说明图1">
-        <img class="display-img" src="微信图片_20260328155614_2_2.png" alt="说明图2">
+        <img class="display-img" src="微信图片_20260328155612_1_2.png" alt="Step 1">
+        <img class="display-img" src="微信图片_20260328155614_2_2.png" alt="Step 2">
+
+        <footer>© 2026 Digital Services. All rights reserved.</footer>
     </div>
 
     <script>
         function copyToClipboard() {
             const text = document.getElementById('kami-value').innerText;
-            // 兼容性更好的复制方法
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                alert('✅ 卡密已成功复制！');
-            } catch (err) {
-                alert('复制失败，请手动长按选择复制');
-            }
-            document.body.removeChild(textArea);
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            
+            // 按钮文字反馈
+            const btn = document.querySelector('.copy-btn');
+            const originalText = btn.innerText;
+            btn.innerText = '已成功拷贝';
+            btn.style.background = '#34c759'; // 变成绿色
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = '#000';
+            }, 2000);
         }
     </script>
 </body>
