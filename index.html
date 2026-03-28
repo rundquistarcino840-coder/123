@@ -5,17 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>信息展示</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: center; padding: 20px; color: #333; line-height: 1.6; }
-        .content { max-width: 600px; margin: 0 auto; }
-        img { max-width: 100%; border-radius: 8px; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        p { font-size: 1.2rem; margin-bottom: 30px; }
+        /* 页面基础样式 */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            padding: 20px; 
+            margin: 0;
+            color: #333; 
+        }
+        .content { 
+            max-width: 600px; 
+            width: 100%;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        /* 图片样式优化 */
+        img { 
+            max-width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            margin-top: 20px; 
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        p { 
+            font-size: 1.1rem; 
+            line-height: 1.8;
+            margin-bottom: 20px; 
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
     <div class="content">
-        <p>这里输入你想说的那一段话</p >
-        < img src="https://gitee.com/aaikne/111/raw/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260328155612_1_2.png">
-        < img src="https://gitee.com/aaikne/111/raw/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260328155614_2_2.png">
+        <p>这里输入你想说的那一段话（例如：欢迎来到我的分享页面！）</p >
+        <img src="https://gitee.com/aaikne/111/raw/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260328155612_1_2.png" alt="图片1描述">
+        <img src="https://gitee.com/aaikne/111/raw/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260328155614_2_2.png" alt="图片2描述">
     </div>
 </body>
 </html>
