@@ -3,144 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会员卡密获取</title>
+    <title>快捷兑换指引</title>
     <style>
         :root {
-            --accent-color: #0071e3;
-            --step-bg: #f5f5f7;
+            --primary: #0071e3;
+            --success: #34c759;
+            --bg: #f2f2f7;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
         }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; 
-            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; 
+            background-color: var(--bg);
             margin: 0;
             padding: 20px;
-            color: #1d1d1f;
+            color: var(--text-main);
             display: flex;
             justify-content: center;
+            line-height: 1.5;
         }
 
-        .main-container { 
-            max-width: 480px; 
+        .wrapper { 
+            max-width: 440px; 
             width: 100%;
-            padding-top: 20px;
+            margin-top: 10px;
         }
 
-        /* 步骤引导样式 */
-        .step-item {
-            margin-bottom: 35px;
-            position: relative;
+        /* 顶部引导标题 */
+        header { text-align: center; margin-bottom: 30px; }
+        header h1 { font-size: 24px; font-weight: 700; margin: 0; }
+        header p { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
+
+        /* 通用卡片样式 */
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
-        .step-number {
-            font-size: 13px;
+        .step-tag {
+            display: inline-block;
+            background: rgba(0,113,227,0.1);
+            color: var(--primary);
+            font-size: 11px;
             font-weight: 700;
-            color: var(--accent-color);
-            margin-bottom: 8px;
-            display: block;
-            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
         }
 
-        h2 { font-size: 20px; font-weight: 600; margin: 0 0 15px 0; letter-spacing: -0.5px; }
+        .card-title { font-size: 17px; font-weight: 600; margin-bottom: 15px; display: block; }
 
-        /* 第一步：卡密展示区 */
-        .kami-card {
-            background: #fbfbfd;
-            border: 1px solid #d2d2d7;
-            border-radius: 14px;
-            padding: 20px;
+        /* 卡密展示 */
+        .kami-box {
+            background: #f5f5f7;
+            border: 1px dashed #d2d2d7;
+            padding: 18px;
+            border-radius: 12px;
             text-align: center;
         }
         #kami-value {
-            font-size: 1.6rem;
+            font-size: 22px;
             font-weight: 700;
-            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-family: "SF Mono", Menlo, monospace;
+            color: #000;
             display: block;
             margin-bottom: 15px;
-            color: #000;
-        }
-        .copy-btn {
-            background: var(--accent-color);
-            color: #fff;
-            border: none;
-            padding: 10px 25px;
-            font-size: 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: 500;
         }
 
-        /* 第二步：兑换链接 */
-        .link-card {
-            background: #fff;
-            border: 1px solid #e5e5e5;
-            padding: 18px;
-            border-radius: 14px;
+        /* 按钮动画 */
+        .btn {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-        .link-card:hover { background: #f5f5f7; }
-        .link-text { color: var(--accent-color); font-weight: 500; }
-        .link-icon { color: #86868b; }
-
-        /* 第三步：图文说明 */
-        .instruction-box {
-            background: var(--step-bg);
-            padding: 15px;
+            justify-content: center;
+            width: 100%;
+            height: 48px;
+            border: none;
             border-radius: 12px;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #424245;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
         }
-        .guide-img { 
+        .btn-copy { background: #000; color: #fff; }
+        .btn-link { background: var(--primary); color: #fff; }
+        .btn:active { transform: scale(0.97); opacity: 0.9; }
+
+        /* 说明文字列表 */
+        .guide-list { margin: 0; padding: 0; list-style: none; }
+        .guide-list li { 
+            font-size: 14px; 
+            color: #424245; 
+            margin-bottom: 10px; 
+            display: flex; 
+            align-items: flex-start;
+        }
+        .guide-list li::before { content: "•"; color: var(--primary); font-weight: bold; width: 15px; flex-shrink: 0; }
+
+        .img-stack { margin-top: 15px; }
+        .img-stack img { 
             width: 100%; 
-            border-radius: 10px; 
-            margin-top: 15px; 
+            border-radius: 12px; 
+            margin-bottom: 12px; 
             display: block;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        footer { text-align: center; margin-top: 50px; font-size: 11px; color: #86868b; }
+        footer { text-align: center; padding: 20px 0 40px; font-size: 12px; color: var(--text-secondary); }
     </style>
 </head>
 <body>
-    <div class="main-container">
+    <div class="wrapper">
+        <header>
+            <h1>自助兑换指引</h1>
+            <p>请按顺序完成以下操作</p>
+        </header>
         
-        <div class="step-item">
-            <span class="step-number">Step 01</span>
-            <h2>复制您的专属卡密</h2>
-            <div class="kami-card">
+        <div class="card">
+            <span class="step-tag">STEP 01</span>
+            <span class="card-title">获取您的凭证</span>
+            <div class="kami-box">
                 <span id="kami-value">ABCDE-12345-FGHIJ</span>
-                <button class="copy-btn" onclick="copyCode()">拷贝代码</button>
+                <button class="btn btn-copy" onclick="copyCode()">拷贝凭证代码</button>
             </div>
         </div>
 
-        <div class="step-item">
-            <span class="step-number">Step 02</span>
-            <h2>前往兑换地址</h2>
-            <a href="https://example.com/redeem" class="link-card" target="_blank">
-                <span class="link-text">点击进入官方兑换页面</span>
-                <span class="link-icon">→</span>
-            </a>
+        <div class="card">
+            <span class="step-tag">STEP 02</span>
+            <span class="card-title">前往兑换页面</span>
+            <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转兑换 →</a>
         </div>
 
-        <div class="step-item">
-            <span class="step-number">Step 03</span>
-            <h2>操作流程指引</h2>
-            <div class="instruction-box">
-                <strong>温馨提示：</strong><br>
-                如有疑问，请参考下方图示或联系客服。
-            </div>
+        <div class="card">
+            <span class="step-tag">STEP 03</span>
+            <span class="card-title">操作流程说明</span>
+            <ul class="guide-list">
+                <li>点击上方“拷贝”按钮获取专属代码。</li>
+                <li>点击“跳转兑换”按钮进入官方操作页。</li>
+                <li>在输入框粘贴代码并确认即可生效。</li>
+            </ul>
             
-            <img class="guide-img" src="微信图片_20260328155612_1_2.png" alt="流程图1">
-            <img class="guide-img" src="微信图片_20260328155614_2_2.png" alt="流程图2">
+            <div class="img-stack">
+                <img src="微信图片_20260328155612_1_2.png" alt="Guide 1">
+                <img src="微信图片_20260328155614_2_2.png" alt="Guide 2">
+            </div>
         </div>
 
-        <footer>© 2026 自动发放系统</footer>
+        <footer>
+            由 自动化分发系统 提供支持
+        </footer>
     </div>
 
     <script>
@@ -153,13 +170,14 @@
             document.execCommand('copy');
             document.body.removeChild(el);
             
-            const btn = document.querySelector('.copy-btn');
-            const oldText = btn.innerText;
-            btn.innerText = '✅ 已成功拷贝';
+            const btn = document.querySelector('.btn-copy');
+            const originalText = btn.innerText;
+            btn.innerText = '已复制到剪贴板';
             btn.style.background = '#34c759';
+            
             setTimeout(() => {
-                btn.innerText = oldText;
-                btn.style.background = '#0071e3';
+                btn.innerText = originalText;
+                btn.style.background = '#000';
             }, 2000);
         }
     </script>
