@@ -1,122 +1,221 @@
-<style>
-    :root {
-        --primary: #0071e3;
-        --wechat: #07c160;
-        --success: #34c759;
-        /* 1. 稍微加深背景色，确保在 PC 端能一眼看出卡片轮廓 */
-        --bg: #ececef; 
-        --text-main: #1d1d1f;
-        --text-secondary: #86868b;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快捷兑换中心</title>
+    <style>
+        :root {
+            --primary: #0071e3;
+            --wechat: #07c160;
+            --success: #34c759;
+            /* 稍微加深背景色，确保在 PC 端对比明显 */
+            --bg: #ececef; 
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            
+            /* 极致统一参数 */
+            --border-radius-large: 24px;
+            --border-radius-small: 14px;
+            --box-padding: 22px;
+            --btn-height: 50px;
+            --font-size-display: 18px;
+        }
+
+        /* 全平台兼容补丁 */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", sans-serif; 
+            background-color: var(--bg);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.5;
+            text-rendering: optimizeLegibility;
+        }
+
+        .wrapper { 
+            max-width: 440px; 
+            width: 100%; 
+            margin: 10px auto; 
+        }
+
+        header { text-align: center; margin-bottom: 35px; }
+        header h1 { font-size: 26px; font-weight: 700; margin: 0; letter-spacing: -0.5px; }
+        header p { font-size: 15px; color: var(--text-secondary); margin-top: 8px; }
+
+        /* 大版块容器：强化了边框和阴影，解决 PC 端融合问题 */
+        .section-block {
+            background: #ffffff;
+            border-radius: var(--border-radius-large);
+            padding: 26px;
+            margin-bottom: 25px;
+            /* 强化立体感 */
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
+            border: 1px solid rgba(0,0,0,0.08); 
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: block;
+            border-bottom: 1px solid #f0f0f2;
+            padding-bottom: 10px;
+        }
+
+        .inner-card { margin-bottom: 20px; }
+        .inner-card:last-child { margin-bottom: 0; }
+        .card-label { font-size: 16px; font-weight: 600; margin-bottom: 15px; display: block; }
+
+        /* 统一的小方块样式 */
+        .universal-info-box {
+            background: #fbfbfd;
+            border: 1.5px solid #d2d2d7; /* 稍微加强线条感 */
+            padding: var(--box-padding);
+            border-radius: var(--border-radius-small);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .display-content {
+            font-size: var(--font-size-display);
+            font-weight: 700;
+            font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+            display: block;
+            margin-bottom: 15px;
+            letter-spacing: 0.8px;
+            word-break: break-all;
+        }
+        #wechat-num { color: var(--wechat); }
+        #kami-value { color: var(--text-main); }
+        .link-text { color: var(--primary); }
+
+        /* 按钮系统 */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: var(--btn-height);
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            text-decoration: none;
+        }
         
-        --border-radius-large: 24px;
-        --border-radius-small: 14px;
-        --box-padding: 22px;
-        --btn-height: 50px;
-        --font-size-display: 18px;
-    }
+        .btn-black { background: #1d1d1f; color: #fff; }
+        .btn-link { background: var(--primary); color: #fff; }
+        .btn-wechat { background: var(--wechat); color: #fff; }
+        
+        /* 交互反馈 */
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn:active { transform: scale(0.98); }
 
-    * {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        box-sizing: border-box;
-    }
+        /* 图片组件 */
+        .img-stack img { 
+            width: 100%; 
+            border-radius: 16px; 
+            margin-top: 10px; 
+            display: block;
+            border: 1px solid rgba(0,0,0,0.05);
+            background: #f0f0f2;
+        }
 
-    body { 
-        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", sans-serif; 
-        background-color: var(--bg);
-        margin: 0;
-        padding: 20px;
-        color: var(--text-main);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        line-height: 1.5;
-    }
+        footer { text-align: center; padding: 15px 0 50px; font-size: 11px; color: var(--text-secondary); opacity: 0.8; }
+    </style>
+</head>
+<body>
 
-    .wrapper { 
-        max-width: 440px; 
-        width: 100%; 
-        margin: 10px auto; 
-    }
+    <div class="wrapper">
+        <header>
+            <h1>自助兑换服务</h1>
+            <p>轻松三步，开启会员体验</p>
+        </header>
 
-    /* 2. 强化大版块容器：增加边框清晰度，防止与背景融合 */
-    .section-block {
-        background: #ffffff;
-        border-radius: var(--border-radius-large);
-        padding: 26px;
-        margin-bottom: 25px;
-        /* 增加阴影深度，并给一个更明确的浅灰边框 */
-        box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
-        border: 1px solid rgba(0,0,0,0.08); 
-        overflow: hidden;
-    }
+        <div class="section-block" style="border-top: 5px solid var(--wechat);">
+            <span class="section-title">Support / 售后支持</span>
+            <div class="inner-card">
+                <span class="card-label">联系客服微信</span>
+                <div class="universal-info-box">
+                    <span id="wechat-num" class="display-content">WX_12345678</span>
+                    <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '复制微信号', '#07c160')">复制微信号并去添加</button>
+                </div>
+            </div>
+        </div>
 
-    /* 3. 强化内部小方块：在 PC 端也需要更清晰 */
-    .universal-info-box {
-        background: #fbfbfd;
-        border: 1.5px solid #d2d2d7; /* 稍微加粗一点点边框线 */
-        padding: var(--box-padding);
-        border-radius: var(--border-radius-small);
-        text-align: center;
-        margin-bottom: 10px;
-    }
+        <div class="section-block" style="border-top: 5px solid var(--primary);">
+            <span class="section-title">Redeem / 兑换步骤</span>
+            
+            <div class="inner-card">
+                <span class="card-label">01. 拷贝您的CDK</span>
+                <div class="universal-info-box">
+                    <span id="kami-value" class="display-content">等待领取...</span>
+                    <button class="btn btn-black" onclick="copyText('kami-value', this, '拷贝代码', '#1d1d1f')">拷贝CDK代码</button>
+                </div>
+            </div>
 
-    /* 其余部分保持不变... */
-    .section-title {
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--text-secondary);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
-        display: block;
-        border-bottom: 1px solid #f0f0f2;
-        padding-bottom: 10px;
-    }
+            <div class="inner-card">
+                <span class="card-label">02. 访问兑换页</span>
+                <div class="universal-info-box">
+                    <span class="display-content link-text">官方指定兑换通道</span>
+                    <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转兑换 →</a>
+                </div>
+            </div>
 
-    .inner-card { margin-bottom: 20px; }
-    .card-label { font-size: 16px; font-weight: 600; margin-bottom: 15px; display: block; }
+            <div class="inner-card">
+                <span class="card-label">03. 流程参考图</span>
+                <div class="img-stack">
+                    <img src="微信图片_20260328155612_1_2.png" alt="步骤1">
+                    <img src="微信图片_20260328155614_2_2.png" alt="步骤2">
+                </div>
+            </div>
+        </div>
 
-    .display-content {
-        font-size: var(--font-size-display);
-        font-weight: 700;
-        font-family: "SF Mono", Menlo, monospace;
-        display: block;
-        margin-bottom: 15px;
-        letter-spacing: 0.8px;
-        word-break: break-all;
-    }
-    #wechat-num { color: var(--wechat); }
-    #kami-value { color: var(--text-main); }
-    .link-text { color: var(--primary); }
+        <footer>© 2026 自动化分发系统 · 极致对齐补强版</footer>
+    </div>
 
-    .btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: var(--btn-height);
-        border: none;
-        border-radius: 12px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-        text-decoration: none;
-    }
-    .btn-black { background: #1d1d1f; color: #fff; }
-    .btn-link { background: var(--primary); color: #fff; }
-    .btn-wechat { background: var(--wechat); color: #fff; }
-    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn:active { transform: scale(0.98); }
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const myId = urlParams.get('id');
+            if (myId) {
+                document.getElementById('kami-value').innerText = myId;
+            }
+        };
 
-    .img-stack img { 
-        width: 100%; 
-        border-radius: 16px; 
-        margin-top: 10px; 
-        display: block;
-        border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    footer { text-align: center; padding: 15px 0 50px; font-size: 11px; color: var(--text-secondary); opacity: 0.8; }
-</style>
+        function copyText(elementId, btnElement, originalText, originalBg) {
+            const text = document.getElementById(elementId).innerText;
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            
+            btnElement.innerText = '✅ 已成功复制';
+            btnElement.style.background = 'var(--success)';
+            
+            setTimeout(() => {
+                btnElement.innerText = originalText;
+                btnElement.style.background = originalBg;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
