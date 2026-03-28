@@ -15,7 +15,7 @@
         }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif; 
             background-color: var(--bg);
             margin: 0;
             padding: 20px;
@@ -30,17 +30,18 @@
         .wrapper { max-width: 460px; width: 100%; }
 
         header { text-align: center; margin: 20px 0 30px; }
-        header h1 { font-size: 24px; font-weight: 700; margin: 0; }
+        header h1 { font-size: 24px; font-weight: 700; margin: 0; letter-spacing: -0.5px; }
         header p { font-size: 14px; color: var(--text-secondary); margin-top: 6px; }
 
         /* 大版块容器样式 */
         .section-block {
             background: #ffffff;
             border-radius: 28px;
-            padding: 24px;
+            padding: 26px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.02);
+            overflow: hidden; /* 确保装饰条圆角贴合 */
         }
 
         .section-title {
@@ -48,44 +49,42 @@
             font-weight: 700;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            letter-spacing: 1.2px;
+            margin-bottom: 22px;
             display: block;
-            border-bottom: 1px solid #f0f0f2;
-            padding-bottom: 10px;
+            border-bottom: 1px solid #f2f2f4;
+            padding-bottom: 12px;
         }
 
-        /* 内部小卡片样式 */
-        .inner-card {
-            margin-bottom: 20px;
-        }
+        .inner-card { margin-bottom: 24px; }
         .inner-card:last-child { margin-bottom: 0; }
+        .card-label { font-size: 16px; font-weight: 600; margin-bottom: 14px; display: block; color: #000; }
 
-        .card-label { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: block; }
-
-        /* 统一的展示盒子 */
-        .info-box {
+        /* --- 核心：完全统一的展示盒子样式 --- */
+        .universal-box {
             background: #fbfbfd;
-            border: 1px dashed #d2d2d7;
-            padding: 18px;
-            border-radius: 16px;
+            border: 1px dashed #d2d2d7; /* 统一使用虚线，增加“凭证感” */
+            padding: 22px;
+            border-radius: 18px;
             text-align: center;
-            margin-bottom: 10px;
+            transition: all 0.2s ease;
         }
-        
-        /* 针对第二步的实线盒子 */
-        .link-box { border-style: solid; background: #fff; }
 
-        #kami-value, #wechat-num, .link-display-text {
+        /* 统一的内容文字样式 */
+        .display-content {
             font-size: 22px;
             font-weight: 700;
-            font-family: "SF Mono", Menlo, monospace;
+            font-family: "SF Mono", "ui-monospace", Menlo, monospace;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             letter-spacing: 1px;
+            word-break: break-all;
         }
+
+        /* 独立颜色区分 */
         #wechat-num { color: var(--wechat); }
-        .link-display-text { font-size: 17px; color: var(--primary); }
+        #kami-value { color: #000; }
+        .link-text { color: var(--primary); font-size: 18px; }
 
         /* 按钮系统 */
         .btn {
@@ -93,80 +92,80 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 48px;
+            height: 50px;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
         }
-        .btn-copy { background: #1d1d1f; color: #fff; }
+        .btn-copy-black { background: #1d1d1f; color: #fff; }
         .btn-link { background: var(--primary); color: #fff; }
         .btn-wechat { background: var(--wechat); color: #fff; }
-        .btn:active { transform: scale(0.98); opacity: 0.9; }
+        .btn:active { transform: scale(0.97); opacity: 0.9; }
 
         /* 图片样式 */
         .img-stack img { 
             width: 100%; 
-            border-radius: 14px; 
+            border-radius: 16px; 
             margin-top: 10px; 
             display: block;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.06);
         }
 
-        footer { text-align: center; padding: 10px 0 50px; font-size: 12px; color: var(--text-secondary); }
+        footer { text-align: center; padding: 10px 0 50px; font-size: 11px; color: var(--text-secondary); letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
 
     <div class="wrapper">
         <header>
-            <h1>自助兑换服务</h1>
-            <p>轻松三步，开启会员体验</p>
+            <h1>自助兑换中心</h1>
+            <p>轻松获取并激活您的会员权限</p>
         </header>
 
-        <div class="section-block" style="border-top: 4px solid var(--wechat);">
+        <div class="section-block" style="border-top: 5px solid var(--wechat);">
             <span class="section-title">Support / 售后支持</span>
             <div class="inner-card">
-                <span class="card-label">联系客服微信</span>
-                <div class="info-box">
+                <span class="card-label">添加客服微信</span>
+                <div class="universal-box">
                     <span id="wechat-num">WX_12345678</span>
-                    <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '复制微信号', '#07c160')">复制微信号</button>
+                    <button class="btn btn-wechat" onclick="copyText('wechat-num', this, '复制微信号', '#07c160')">复制微信号并去添加</button>
                 </div>
             </div>
         </div>
 
-        <div class="section-block">
-            <span class="section-title">Redeem / 兑换流程</span>
+        <div class="section-block" style="border-top: 5px solid var(--primary);">
+            <span class="section-title">Redeem / 兑换步骤</span>
             
             <div class="inner-card">
                 <span class="card-label">01. 拷贝您的CDK</span>
-                <div class="info-box">
+                <div class="universal-box">
                     <span id="kami-value">ABCDE-12345-FGHIJ</span>
-                    <button class="btn btn-copy" onclick="copyText('kami-value', this, '拷贝代码', '#1d1d1f')">拷贝CDK代码</button>
+                    <button class="btn btn-copy-black" onclick="copyText('kami-value', this, '拷贝CDK代码', '#1d1d1f')">拷贝代码</button>
                 </div>
             </div>
 
             <div class="inner-card">
                 <span class="card-label">02. 访问兑换页</span>
-                <div class="info-box link-box">
-                    <span class="link-display-text">官方指定兑换通道</span>
-                    <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转 →</a>
+                <div class="universal-box">
+                    <span class="display-content link-text">官方指定兑换通道</span>
+                    <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转兑换 →</a>
                 </div>
             </div>
 
             <div class="inner-card">
                 <span class="card-label">03. 流程参考图</span>
                 <div class="img-stack">
-                    <img src="微信图片_20260328155612_1_2.png" alt="Guide 1">
-                    <img src="微信图片_20260328155614_2_2.png" alt="Guide 2">
+                    <img src="微信图片_20260328155612_1_2.png" alt="参考图1">
+                    <img src="微信图片_20260328155614_2_2.png" alt="参考图2">
                 </div>
             </div>
         </div>
 
-        <footer>© 2026 自动化分发系统</footer>
+        <footer>© 2026 自动化分发系统 · 安全加密链接</footer>
     </div>
 
     <script>
@@ -179,7 +178,7 @@
             document.execCommand('copy');
             document.body.removeChild(el);
             
-            btnElement.innerText = '✅ 已成功复制';
+            btnElement.innerText = '✅ 已复制到剪贴板';
             btnElement.style.background = 'var(--success)';
             
             setTimeout(() => {
