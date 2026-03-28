@@ -3,127 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>卡密自助领取</title>
+    <title>会员卡密获取</title>
     <style>
-        /* 核心视觉：Apple 风格极简主义 */
         :root {
-            --primary-color: #0071e3; /* Apple 蓝色 */
-            --bg-color: #f5f5f7;
-            --card-bg: rgba(255, 255, 255, 0.8);
+            --accent-color: #0071e3;
+            --step-bg: #f5f5f7;
         }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; 
-            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; 
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            color: #1d1d1f;
             display: flex;
             justify-content: center;
-            margin: 0;
-            padding: 40px 20px;
-            color: #1d1d1f;
-            -webkit-font-smoothing: antialiased;
         }
 
-        .container { 
-            max-width: 540px; 
+        .main-container { 
+            max-width: 480px; 
             width: 100%;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px); /* 磨砂玻璃效果 */
-            padding: 40px;
-            border-radius: 28px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            padding-top: 20px;
+        }
+
+        /* 步骤引导样式 */
+        .step-item {
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .step-number {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        h2 { font-size: 20px; font-weight: 600; margin: 0 0 15px 0; letter-spacing: -0.5px; }
+
+        /* 第一步：卡密展示区 */
+        .kami-card {
+            background: #fbfbfd;
+            border: 1px solid #d2d2d7;
+            border-radius: 14px;
+            padding: 20px;
             text-align: center;
         }
-
-        /* 顶部说明文字 */
-        h2 { font-size: 24px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.5px; }
-        .subtitle { color: #86868b; font-size: 14px; margin-bottom: 30px; }
-
-        /* 卡密展示盒：高质感纹理 */
-        .kami-wrapper {
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
-            border: 1px solid #d2d2d7;
-            padding: 30px 20px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .kami-label { font-size: 12px; color: #86868b; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; }
         #kami-value {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 700;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            display: block;
+            margin-bottom: 15px;
             color: #000;
-            font-family: "SF Mono", Menlo, Consolas, monospace;
-            letter-spacing: 1px;
-            word-break: break-all;
         }
-
-        /* 复制按钮：灵动渐变 */
         .copy-btn {
-            background: #000;
+            background: var(--accent-color);
             color: #fff;
             border: none;
-            padding: 14px 40px;
-            font-size: 16px;
-            border-radius: 12px;
+            padding: 10px 25px;
+            font-size: 14px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-            font-weight: 500;
             width: 100%;
+            font-weight: 500;
         }
-        .copy-btn:hover { background: #333; transform: scale(1.02); }
-        .copy-btn:active { transform: scale(0.98); }
 
-        /* --- 新增：图片上方的自定义文本框 --- */
-        .custom-textbox {
-            margin-top: 40px;
-            padding: 20px;
+        /* 第二步：兑换链接 */
+        .link-card {
             background: #fff;
-            border-radius: 16px;
             border: 1px solid #e5e5e5;
-            text-align: left; /* 文字左对齐更易读 */
-            font-size: 15px;
+            padding: 18px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .link-card:hover { background: #f5f5f7; }
+        .link-text { color: var(--accent-color); font-weight: 500; }
+        .link-icon { color: #86868b; }
+
+        /* 第三步：图文说明 */
+        .instruction-box {
+            background: var(--step-bg);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 14px;
             line-height: 1.6;
             color: #424245;
         }
-
-        /* 图片样式：高级圆角与阴影 */
-        .display-img { 
-            max-width: 100%; 
-            border-radius: 18px; 
-            margin-top: 20px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        .guide-img { 
+            width: 100%; 
+            border-radius: 10px; 
+            margin-top: 15px; 
             display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        footer { margin-top: 30px; font-size: 12px; color: #b6b6bb; }
+        footer { text-align: center; margin-top: 50px; font-size: 11px; color: #86868b; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>领取成功</h2>
-        <p class="subtitle">请妥善保管您的唯一凭证</p>
-
-        <div class="kami-wrapper">
-            <div class="kami-label">Code / 专属卡密</div>
-            <div id="kami-value">ABCDE-12345-FGHIJ</div>
+    <div class="main-container">
+        
+        <div class="step-item">
+            <span class="step-number">Step 01</span>
+            <h2>复制您的专属卡密</h2>
+            <div class="kami-card">
+                <span id="kami-value">ABCDE-12345-FGHIJ</span>
+                <button class="copy-btn" onclick="copyCode()">拷贝代码</button>
+            </div>
         </div>
 
-        <button class="copy-btn" onclick="copyToClipboard()">拷贝卡密</button>
-
-        <div class="custom-textbox">
-            <strong>📢 使用说明：</strong><br>
-            在这里输入你想说的那一段话。你可以写充值流程、注意事项或者联系方式。
-            支持多行显示，会自动根据内容调整高度。
+        <div class="step-item">
+            <span class="step-number">Step 02</span>
+            <h2>前往兑换地址</h2>
+            <a href="https://example.com/redeem" class="link-card" target="_blank">
+                <span class="link-text">点击进入官方兑换页面</span>
+                <span class="link-icon">→</span>
+            </a>
         </div>
 
-        <img class="display-img" src="微信图片_20260328155612_1_2.png" alt="Step 1">
-        <img class="display-img" src="微信图片_20260328155614_2_2.png" alt="Step 2">
+        <div class="step-item">
+            <span class="step-number">Step 03</span>
+            <h2>操作流程指引</h2>
+            <div class="instruction-box">
+                <strong>温馨提示：</strong><br>
+                1. 复制上方卡密后，点击链接进入兑换页。<br>
+                2. 在输入框粘贴卡密，点击确认即可完成。<br>
+                3. 如有疑问，请参考下方图示或联系客服。
+            </div>
+            
+            <img class="guide-img" src="微信图片_20260328155612_1_2.png" alt="流程图1">
+            <img class="guide-img" src="微信图片_20260328155614_2_2.png" alt="流程图2">
+        </div>
 
-        <footer>© 2026 Digital Services. All rights reserved.</footer>
+        <footer>© 2026 自动发放系统</footer>
     </div>
 
     <script>
-        function copyToClipboard() {
+        function copyCode() {
             const text = document.getElementById('kami-value').innerText;
             const el = document.createElement('textarea');
             el.value = text;
@@ -132,14 +155,13 @@
             document.execCommand('copy');
             document.body.removeChild(el);
             
-            // 按钮文字反馈
             const btn = document.querySelector('.copy-btn');
-            const originalText = btn.innerText;
-            btn.innerText = '已成功拷贝';
-            btn.style.background = '#34c759'; // 变成绿色
+            const oldText = btn.innerText;
+            btn.innerText = '✅ 已成功拷贝';
+            btn.style.background = '#34c759';
             setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = '#000';
+                btn.innerText = oldText;
+                btn.style.background = '#0071e3';
             }, 2000);
         }
     </script>
