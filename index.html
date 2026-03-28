@@ -41,7 +41,7 @@
             margin-bottom: 30px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.03);
-            overflow: hidden; /* 确保装饰条不超出圆角 */
+            overflow: hidden;
         }
 
         .section-title {
@@ -64,10 +64,10 @@
 
         .card-label { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: block; }
 
-        /* 统一的展示盒子 - 微信、CDK、跳转链接全部共用此样式 */
+        /* 统一的展示盒子 */
         .info-box {
             background: #fbfbfd;
-            border: 1px dashed #d2d2d7; /* 统一使用虚线 */
+            border: 1px dashed #d2d2d7;
             padding: 18px;
             border-radius: 16px;
             text-align: center;
@@ -81,6 +81,7 @@
             display: block;
             margin-bottom: 15px;
             letter-spacing: 1px;
+            word-break: break-all;
         }
         #wechat-num { color: var(--wechat); }
         .link-display-text { font-size: 17px; color: var(--primary); }
@@ -142,14 +143,15 @@
             <div class="inner-card">
                 <span class="card-label">01. 拷贝您的CDK</span>
                 <div class="info-box">
-                    <span id="kami-value">ABCDE-12345-FGHIJ</span>
+                    <span id="kami-value">等待领取...</span>
                     <button class="btn btn-copy" onclick="copyText('kami-value', this, '拷贝代码', '#1d1d1f')">拷贝CDK代码</button>
                 </div>
             </div>
 
             <div class="inner-card">
                 <span class="card-label">02. 访问兑换页</span>
-                <div class="info-box"> <span class="link-display-text">官方指定兑换通道</span>
+                <div class="info-box">
+                    <span class="link-display-text">官方指定兑换通道</span>
                     <a href="https://example.com/redeem" class="btn btn-link" target="_blank">立即跳转 →</a>
                 </div>
             </div>
@@ -167,6 +169,15 @@
     </div>
 
     <script>
+        // --- 仅增加自动抓取参数功能，其余逻辑不动 ---
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const myId = urlParams.get('id'); // 抓取链接后 ?id= 的内容
+            if (myId) {
+                document.getElementById('kami-value').innerText = myId;
+            }
+        };
+
         function copyText(elementId, btnElement, originalText, originalBg) {
             const text = document.getElementById(elementId).innerText;
             const el = document.createElement('textarea');
